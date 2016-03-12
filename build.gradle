@@ -23,11 +23,6 @@ jar
     {
         include("classes/**")
     }
-
-    manifest
-    {
-        attributes 'Main-Class': 'cheeseinthedark.vendingmachine.VendingMachine'
-    }
 }
 
 test {
@@ -35,5 +30,3 @@ test {
         exceptionFormat = 'full'
     }
 }
-
-mainClassName = "cheeseinthedark.vendingmachine.VendingMachine"

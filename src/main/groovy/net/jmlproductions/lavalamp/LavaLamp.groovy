@@ -1,3 +1,5 @@
+package net.jmlproductions.lavalamp
+
 class LavaLamp
 {
     def static describe(description) {
@@ -14,6 +16,7 @@ class LavaLamp
     def private setup = []
     def private tests = []
     def private teardown = []
+    def private success = true
 
     def beforeEach(closure) {
         setup << closure
@@ -31,24 +34,11 @@ class LavaLamp
     }
 
     def testIt(name, testClosure) {
-        tests << {
-            try {
-                runTest({setup.each { it() }}, testClosure, {teardown.each { it() }})
-                outputTestSuccess(name)
-                return true
-            } catch (AssertionError failure) {
-                outputTestFailure(name)
-                return false
-            }
-        }
+        tests << new LavaLampTestCase(name, setup, testClosure, teardown, outputTestSuccess, outputTestFailure)
     }
 
     def private runTests () {
-        def success = true
-
-        tests.each {
-            success &= it()
-        }
+        tests.each { it() }
 
         println()
         if (success) {
@@ -58,17 +48,12 @@ class LavaLamp
         }
     }
 
-    def private runTest(setup, test, teardown) {
-        setup()
-        test()
-        teardown()
-    }
-
-    def private outputTestSuccess(name) {
+    def private outputTestSuccess = { name ->
         println description + " " + name + ": PASS"
     }
 
-    def private outputTestFailure(name) {
+    def private outputTestFailure = { name ->
+        success = false
         println description + " " + name + ": FAIL"
     }
 }

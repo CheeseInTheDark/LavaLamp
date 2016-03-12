@@ -1,7 +1,9 @@
+package net.jmlproductions.lavalamp
+
 import org.junit.Before
 import org.junit.Test
 
-import static LavaLamp.*
+import static net.jmlproductions.lavalamp.LavaLamp.*
 
 class LavaLampTest
 {
@@ -216,17 +218,19 @@ class LavaLampTest
         def firstTeardownHasRun = false
         def secondTeardownHasRun = false
 
-        describe("context with teardown methods") {
-            afterEach {
-                firstTeardownHasRun = true
-            }
+        captureOutput {
+            describe("context with teardown methods") {
+                afterEach {
+                    firstTeardownHasRun = true
+                }
 
-            afterEach {
-                secondTeardownHasRun = true
-            }
+                afterEach {
+                    secondTeardownHasRun = true
+                }
 
-            testIt("runs each one") {
-                assert true
+                testIt("runs each one") {
+                    assert true
+                }
             }
         }
 
