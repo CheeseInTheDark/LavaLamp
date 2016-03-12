@@ -1,0 +1,39 @@
+apply plugin: 'application'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'groovy'
+
+repositories
+{
+    mavenCentral()
+}
+
+dependencies
+{
+    compile 'org.codehaus.groovy:groovy-all:2.4.1'
+
+    testCompile 'org.hamcrest:hamcrest-all:1.3'
+    testCompile 'org.mockito:mockito-all:1.9.+'
+    testCompile 'junit:junit:4.11'
+}
+
+jar
+{
+    from(".")
+    {
+        include("classes/**")
+    }
+
+    manifest
+    {
+        attributes 'Main-Class': 'cheeseinthedark.vendingmachine.VendingMachine'
+    }
+}
+
+test {
+    testLogging {
+        exceptionFormat = 'full'
+    }
+}
+
+mainClassName = "cheeseinthedark.vendingmachine.VendingMachine"
